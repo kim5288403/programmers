@@ -1,27 +1,29 @@
 import sys
+sys.setrecursionlimit(10 ** 7)
+input = sys.stdin.readline
 
-count = 0
-def dfs(c):
+def dfs(s):
     global count
-    for i in network[c]:
-        if not visited[i]:
-            visited[i] = True
-            dfs(i)
+
+    for i in arr[s]:
+        if not v[i]:
+            v[i] = True
             count += 1
+            dfs(i)
 
 
+C = int(input())
 N = int(input())
-link = int(input())
+arr = [[] for _ in range(C + 1)]
+v = [False] * (C + 1)
+count = 0
 
-network = [[] * (N + 1) for _ in range(N + 1)]
-visited = [False] * (N + 1)
-
-for i in range(link):
+for i in range(N):
     a, b = map(int, input().split())
-    network[a].append(b)
-    network[b].append(a)
+    arr[a].append(b)
+    arr[b].append(a)
 
-visited[1] = True
+v[1] = True
 dfs(1)
-print(count)
 
+print(count)
